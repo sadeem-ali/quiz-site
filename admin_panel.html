@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block title %}لوحة الإدارة{% endblock %}
+
+{% block content %}
+<h1>لوحة الإدارة</h1>
+<a href="{{ url_for('admin_logout') }}" class="logout-link">تسجيل خروج</a>
+
+<h2>إضافة سؤال جديد</h2>
+<form method="post" class="admin-form" id="add-form">
+    <label>الفصل / القسم (اختياري)</label>
+    <input type="text" name="chapter" placeholder="مثال: ذكاء اصطناعي — ف1">
+
+    <label>نص السؤال</label>
+    <textarea name="text" required></textarea>
+
+    <label>نوع السؤال</label>
+    <select name="qtype" id="qtype-select">
+        <option value="true_false">صح / خطأ</option>
+        <option value="multiple_choice">اختياري (متعدد الخيارات)</option>
+    </select>
+
+    <div id="tf-fields" class="type-fields">
+        <label>الإجابة الصحيحة</label>
+        <select name="tf_correct">
+            <option value="true">صح</option>
+            <option value="false">خطأ</option>
+        </select>
+        <label>شرح توضيحي (يظهر إذا أخطأ الحل، اختياري)</label>
+        <input type="text" name="explanation">
+    </div>
+
+    <div id="mc-fields" class="type-fields" style="display:none;">
+        <label>الخيار 1</label>
+        <input type="text" name="choice1">
+        <label>الخيار 2</label>
+        <input type="text" name="choice2">
+        <label>الخيار 3 (اختياري)</label>
+        <input type="text" name="choice3">
+        <label>الخيار 4 (اختياري)</label>
+        <input type="text" name="choice4">
+
+        <label>رقم الخيار الصحيح</label>
+        <select name="mc_correct">
+            <option value="1">الخيار 1</option>
+            <option value="2">الخيار 2</option>
+            <option value="3">الخيار 3</option>
+            <option value="4">الخيار 4</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn-primary">إضافة السؤال</button>
+</form>
+
+<h2>الأسئلة الحالية ({{ questions|length }})</h2>
+{% if questions|length == 0 %}
+    <p class="empty-state">لا توجد أسئلة بعد.</p>
+{% else %}
+    <div class="admin-question-list">
+        {% for q in questions %}
+            <div class="admin-question-card">
+                {% if q['chapter'] %}<span class="chapter-tag">{{ q['chapter'] }}</span>{% endif %}
+                <p><strong>{{ q['text'] }}</strong></p>
+                <p>النوع: {{ 'صح/خطأ' if q['qtype'] == 'true_false' else 'اختياري' }}</p>
+                <p>الإجابة الصحيحة: {{ q['correct_answer'] }}</p>
+                <form method="post" action="{{ url_for('admin_delete', question_id=q['id']) }}" onsubmit="return confirm('متأكد من الحذف؟');">
+                    <button type="submit" class="btn-danger">حذف</button>
+                </form>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<script>
+    const qtypeSelect = document.getElementById('qtype-select');
+    const tfFields = document.getElementById('tf-fields');
+    const mcFields = document.getElementById('mc-fields');
+
+    qtypeSelect.addEventListener('change', function () {
+        if (this.value === 'true_false') {
+            tfFields.style.display = 'block';
+            mcFields.style.display = 'none';
+        } else {
+            tfFields.style.display = 'none';
+            mcFields.style.display = 'block';
+        }
+    });
+</script>
+{% endblock %}

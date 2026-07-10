@@ -1,0 +1,270 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Tahoma", "Segoe UI", sans-serif;
+    background: #f4f6f9;
+    margin: 0;
+    color: #222;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 16px;
+}
+
+.site-header {
+    background: #2c3e6b;
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.logo {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.site-header nav a {
+    color: white;
+    text-decoration: none;
+    margin-inline-start: 16px;
+    font-size: 0.95rem;
+}
+
+.site-header nav a:hover {
+    text-decoration: underline;
+}
+
+h1 {
+    margin-top: 16px;
+    font-size: 1.4rem;
+}
+
+.filters {
+    background: white;
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+.filter-form {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.filter-form select {
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    flex: 1;
+    min-width: 140px;
+    font-size: 0.95rem;
+}
+
+.clear-filter {
+    color: #c0392b;
+    font-size: 0.9rem;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.q-count {
+    margin-top: 8px;
+    color: #777;
+    font-size: 0.85rem;
+}
+
+.chapter-tag {
+    display: inline-block;
+    font-size: 11px;
+    color: #185fa5;
+    background: #e6f1fb;
+    padding: 2px 10px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+}
+
+.question-card, .admin-question-card, .result-card {
+    background: white;
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-bottom: 12px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+.question-text {
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-size: 0.98rem;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 8px;
+    transition: background 0.15s;
+}
+
+.option:active, .option:hover {
+    background: #f0f2f7;
+}
+
+.option input {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+.btn-primary {
+    display: inline-block;
+    background: #2c3e6b;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    text-decoration: none;
+    margin-top: 10px;
+    width: 100%;
+    text-align: center;
+}
+
+.btn-primary:hover {
+    background: #1e2b4d;
+}
+
+.btn-submit {
+    position: sticky;
+    bottom: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.btn-danger {
+    background: #c0392b;
+    color: white;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 8px;
+}
+
+.btn-danger:hover {
+    background: #96281b;
+}
+
+.score-box {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #2c3e6b;
+    margin-bottom: 0;
+}
+
+.score-percent {
+    color: #777;
+    margin-bottom: 16px;
+}
+
+.result-card.correct {
+    border-inline-start: 5px solid #27ae60;
+}
+
+.result-card.incorrect {
+    border-inline-start: 5px solid #c0392b;
+}
+
+.explanation {
+    color: #8a6d00;
+    background: #fff8e1;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    margin-top: 6px;
+}
+
+.admin-form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    margin-bottom: 20px;
+}
+
+.admin-form input,
+.admin-form textarea,
+.admin-form select {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-family: inherit;
+    font-size: 1rem;
+    width: 100%;
+}
+
+.flash-box {
+    background: #fff3cd;
+    border: 1px solid #ffe58f;
+    padding: 10px 16px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+}
+
+.empty-state {
+    color: #777;
+}
+
+.logout-link {
+    display: inline-block;
+    margin-bottom: 14px;
+    color: #c0392b;
+}
+
+.site-footer {
+    text-align: center;
+    padding: 20px;
+    color: #999;
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.2rem;
+    }
+    .logo {
+        font-size: 1rem;
+    }
+    .site-header nav a {
+        margin-inline-start: 10px;
+        font-size: 0.85rem;
+    }
+}

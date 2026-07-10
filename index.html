@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}حل الأسئلة{% endblock %}
+
+{% block content %}
+<h1>حل الأسئلة</h1>
+
+<div class="filters">
+    <form method="get" class="filter-form">
+        <select name="chapter" onchange="this.form.submit()">
+            <option value="">كل الفصول</option>
+            {% for ch in chapters %}
+                <option value="{{ ch }}" {% if ch == chapter_filter %}selected{% endif %}>{{ ch }}</option>
+            {% endfor %}
+        </select>
+
+        <select name="type" onchange="this.form.submit()">
+            <option value="">كل الأنواع</option>
+            <option value="true_false" {% if type_filter == 'true_false' %}selected{% endif %}>صح / خطأ</option>
+            <option value="multiple_choice" {% if type_filter == 'multiple_choice' %}selected{% endif %}>اختياري</option>
+        </select>
+
+        {% if chapter_filter or type_filter %}
+            <a href="{{ url_for('index') }}" class="clear-filter">إلغاء الفلترة</a>
+        {% endif %}
+    </form>
+    <p class="q-count">عدد الأسئلة: {{ items|length }}</p>
+</div>
+
+{% if items|length == 0 %}
+    <p class="empty-state">لا توجد أسئلة مطابقة. تفضل بإضافة أسئلة من <a href="{{ url_for('admin_panel') }}">لوحة الإدارة</a>.</p>
+{% else %}
+<form action="{{ url_for('submit') }}" method="post">
+    {% for item in items %}
+        {% set q = item.question %}
+        <div class="question-card">
+            {% if q['chapter'] %}<span class="chapter-tag">{{ q['chapter'] }}</span>{% endif %}
+            <p class="question-text">{{ loop.index }}. {{ q['text'] }}</p>
+
+            <input type="hidden" name="question_id" value="{{ q['id'] }}">
+
+            {% if q['qtype'] == 'true_false' %}
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q_{{ q['id'] }}" value="true" required>
+                        صح
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q_{{ q['id'] }}" value="false">
+                        خطأ
+                    </label>
+                </div>
+            {% elif q['qtype'] == 'multiple_choice' %}
+                <div class="options">
+                    {% for choice in item.choices %}
+                        <label class="option">
+                            <input type="radio" name="q_{{ q['id'] }}" value="{{ choice['choice_text'] }}" required>
+                            {{ choice['choice_text'] }}
+                        </label>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    {% endfor %}
+
+    <button type="submit" class="btn-primary btn-submit">إرسال الإجابات</button>
+</form>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}دخول الإدارة{% endblock %}
+
+{% block content %}
+<h1>دخول لوحة الإدارة</h1>
+<form method="post" class="admin-form">
+    <label>كلمة المرور</label>
+    <input type="password" name="password" required>
+    <button type="submit" class="btn-primary">دخول</button>
+</form>
+{% endblock %}

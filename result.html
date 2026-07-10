@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}النتيجة{% endblock %}
+
+{% block content %}
+<h1>نتيجتك</h1>
+<p class="score-box">{{ score }} / {{ total }}</p>
+<p class="score-percent">
+    {% if total > 0 %}{{ ((score / total) * 100) | round(1) }}%{% endif %}
+</p>
+
+{% for d in details %}
+    <div class="result-card {{ 'correct' if d.is_correct else 'incorrect' }}">
+        {% if d.chapter %}<span class="chapter-tag">{{ d.chapter }}</span>{% endif %}
+        <p class="question-text">{{ d.text }}</p>
+        <p>إجابتك: {{ d.user_answer }}</p>
+        {% if not d.is_correct %}
+            <p>الإجابة الصحيحة: {{ d.correct_answer }}</p>
+        {% endif %}
+        {% if d.explanation %}
+            <p class="explanation">💡 {{ d.explanation }}</p>
+        {% endif %}
+    </div>
+{% endfor %}
+
+<a href="{{ url_for('index') }}" class="btn-primary">حل مرة ثانية</a>
+{% endblock %}
